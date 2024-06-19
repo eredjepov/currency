@@ -9,15 +9,19 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" type="text/css" media="screen" href="currency.css" />
     <title>Currency Rates</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="currency.js"></script>
+    <link rel="stylesheet" href="currency.css" />
   </head>
   <body>
     <div class="container">
       <div class="header">
         <ul>
-          <li class="title" a href="#">bank</li>
+          <li class="title" a href="#">
+            <img src="./pictures/bank.svg" alt="logo" />
+          </li>
           <li class="bank" a href="#">БАНК</li>
           <li class="business" a href="#">БИЗНЕС</li>
           <li class="investments" a href="#">ИНВЕСТИЦИИ</li>
@@ -29,61 +33,66 @@
         </ul>
       </div>
       <div class="center">
-        <h class="subheader">Конвертер валют онлайн</h>
+        <h1 class="subheader">Конвертер валют онлайн</h1>
       </div>
       <div class="calculator">
-          <div class="ihave">
-            <h>У меня есть</h>
-            <ul>
-              <li><a href="#">RUB</a></li>
-              <li><a href="#">USD</a></li>
-              <li><a href="#">EUR</a></li>
-              <li><a href="#">GBP</a></li>
-              <li>
-                <a href="#">BYR<i class="opendown"></i></a>
-                <ul class="submenu">
-                  <li><a href="">HKD</a></li>
-                  <li><a href="">IDR</a></li>
-                  <li><a href="">ILS</a></li>
-                  <li><a href="">DKK</a></li>
-                  <li><a href="">INR</a></li>
-                  <li><a href="">CHF</a></li>
-                  <li><a href="">MXN</a></li>
-                  <li><a href="">CZK</a></li>
-                  <li><a href="">SGD</a></li>
-                  <li><a href="">THB</a></li>
-                </ul>
-              </li>
-            </ul>
-            <input type="text" placeholder="1 RUB = 0.0013USD"/>
+        <div class="ihave">
+          <h2>У меня есть</h2>
+          <ul>
+            <li><a href="#">RUB</a></li>
+            <li><a href="#">USD</a></li>
+            <li><a href="#">EUR</a></li>
+            <li><a href="#">GBP</a></li>
+            <li>
+              <a href="#">BYR &bigtriangledown;<i class="opendown"></i></a>
+              <ul class="submenu">
+                <li><a href="">HKD</a></li>
+                <li><a href="">IDR</a></li>
+                <li><a href="">ILS</a></li>
+                <li><a href="">DKK</a></li>
+                <li><a href="">INR</a></li>
+                <li><a href="">CHF</a></li>
+                <li><a href="">MXN</a></li>
+                <li><a href="">CZK</a></li>
+                <li><a href="">SGD</a></li>
+                <li><a href="">THB</a></li>
+              </ul>
+            </li>
+          </ul>
+          <div class="input">
+            <input type="text" placeholder="0000" />
+            <span class="exchangecourse">1 RUB = 0.0135 USD</span>
           </div>
+        </div>
 
-          <div class="reverse"></div>
+        <div class="reverse"><image src="./pictures/reverse.svg" /></div>
 
-          <div class="wanthave">
-            <h>Хочу приобрести</h>
-            <ul>
-              <li><a href="#">RUB</a></li>
-              <li><a href="#">USD</a></li>
-              <li><a href="#">EUR</a></li>
-              <li><a href="#">GBP</a></li>
-              <li>
-                <a href="#">BYR<i class="opendown"></i></a>
-                <ul class="submenu">
-                  <li><a href="">HKD</a></li>
-                  <li><a href="">IDR</a></li>
-                  <li><a href="">ILS</a></li>
-                  <li><a href="">DKK</a></li>
-                  <li><a href="">INR</a></li>
-                  <li><a href="">CHF</a></li>
-                  <li><a href="">MXN</a></li>
-                  <li><a href="">CZK</a></li>
-                  <li><a href="">SGD</a></li>
-                  <li><a href="">THB</a></li>
-                </ul>
-              </li>
-            </ul>
-            <input type="text" placeholder="1 USD = 73.USD"/>
+        <div class="wanthave">
+          <h3>Хочу приобрести</h3>
+          <ul>
+            <li><a href="#">RUB</a></li>
+            <li><a href="#">USD</a></li>
+            <li><a href="#">EUR</a></li>
+            <li><a href="#">GBP</a></li>
+            <li>
+              <a href="#">BYR &bigtriangledown;<i class="opendown"></i></a>
+              <ul class="submenu">
+                <li><a href="">HKD</a></li>
+                <li><a href="">IDR</a></li>
+                <li><a href="">ILS</a></li>
+                <li><a href="">DKK</a></li>
+                <li><a href="">INR</a></li>
+                <li><a href="">CHF</a></li>
+                <li><a href="">MXN</a></li>
+                <li><a href="">CZK</a></li>
+                <li><a href="">SGD</a></li>
+                <li><a href="">THB</a></li>
+              </ul>
+            </li>
+          </ul>
+          <div class="output">
+            <input type="text" />
+            <span class="exchangecourse">1 RUB = 0.0135 USD</span>
           </div>
         </div>
       </div>

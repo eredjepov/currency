@@ -1,3 +1,9 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
 .container {
     display:grid;
 }
@@ -12,18 +18,15 @@
     align-items: center;
     background-color: rgba(245, 245, 246, 1);
     column-gap: 20px;
-    font-family: 'Roboto', sans-serif;
     font-size: 11px;
     font-weight: 500;
     line-height: 12.89px;
     letter-spacing: 0.06em;
     color: rgba(149, 155, 164, 1);
-    list-style-type: none;
-    
+    list-style-type: none; 
 }
 
 .title {
-    font-family: 'Roboto', sans-serif;
     font-size: 32px;
     font-weight: 500;
     line-height: 37.5px;
@@ -41,138 +44,141 @@
     width: 58px;
     height: 33px;
     border-radius: 5px;
-    font-family: 'Roboto', sans-serif;
     font-size: 11px;
     font-weight: 500;
     color: rgba(0, 0, 0, 1);
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
 .entrance:hover {
     color: rgba(149, 155, 164, 1);
 }
 
-.center {
-    display:grid;
-    justify-content: center;
-    font-family: 'Roboto', sans-serif;
-    color: rgba(0, 0, 0, 1);
+.subheader {
+    width: 587px;
+    height: 32px;
+    top: 106px;
+    padding-left: 253px;
     font-size: 36px;
     font-weight: 700;
     line-height: 42.19px;
-   
-
+    text-align: left;
+    color: #000000;
 }
+
 .calculator {
-    grid-template-columns: 30% 1fr 30%;
-    display:grid;
-    align-content: center;
-    justify-content: center;
-    justify-items: center;
-    align-items: center;
-    padding-top: 65px;
-    padding-left: 30%;
-    padding-right: 30%;
-    font-family: Roboto;
-font-size: 12px;
-font-weight: 400;
-line-height: 14.06px;
-text-align: left;
+    display: flex;
+
+}
+.ihave {
+    padding-left: 253px;
 }
 
-a {
-    display: block;
-    padding: 10px 15px;
-    text-decoration: none;
-    outline: none;
+h2, h3 {
+    width: 120px;
+    height: 28px;
+    top: 171px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 14.06px;
+    text-align: left;
+    color: #9F9F9F;
+}
+
+.reverse {
+    position:relative;
+    width: 36.85px;
+    height: 31.77px;
+    top: 147px;
+    padding-left: 44px;
+    border: 2px #000000;    
+}
+
+.wanthave {
+   padding-left: 42px;
+}
+
+.calculator ul{
+    display:inline-flex;
+    align-items: center;
+    justify-items: center;
+    width: 259px;
+    height: 30px;
+    top: 200px;
     list-style-type: none;
-    font-family: Roboto;
+    text-decoration: none;
+    padding-left: 0px;
+    color:#C6C6C6;
+    
+}
+
+.calculator ul:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.calculator ul li {
+    width: 50px;
+    height: 28px;
+    border: solid 2px #9F9F9F;
+    text-align: center;
+    color:#C6C6C6;
+    text-decoration: none;
     font-size: 12px;
     font-weight: 400;
     line-height: 14.06px;
     text-align: center;
-    border: solid #E5E5E5;
+
     }
-
-.ihave {
-    display: grid;
-    padding-left: 20%;
-
+    
+.calculator ul li:hover {
+    background: #833AE0;
+    text-decoration-color: #fff;
 }
-.ihave ul{
-   display: flex;
-   margin-right: 20px;
-   position: relative;
-   height: 30px;
-   list-style-type: none;
-   padding: 0%;
-   border-radius: 5px;
-
+  
+.calculator ul li ul {
+    display:none;
+    width: 50px;
+    background: #fff;
 }
 
-.reverse {
-    display: grid;
-    background-image: url('./pictures/reverse.svg');
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-    justify-items: center;
-
+.calculator ul li:hover > ul {
+    display: initial;
+    height: 325px;
+    overflow-y: auto;
 }
 
-.wanthave {
-    padding-right: 20%;
+.submenu:hover {
+    display: initial;
 }
-.wanthave ul{
-    display:flex;
-    margin-right: 20px;
-    position: relative;
-    height: 30px;
-    list-style-type: none;
-    padding:0%;
-    border-radius: 5px;
-}
- 
-.submenu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    z-index: 10;
-    -webkit-transition: 0.5s ease-in-out;
-    -moz-transition: 0.5s ease-in-out;
-    -o-transition: 0.5s ease-in-out;
-    transition: 0.5s ease-in-out;
-  }
 
-   .ihave .submenu {
-    display: none;
-   
-  }
-  .ihave ul li:hover .submenu {
-    display: block;
-  }
-
- 
-  .wanthave .submenu {
-    display: none;
-     }
-
-  .wanthave ul li:hover .submenu {
-    display: block;
-  }
-
-  input {
+.input, .output {
     width: 259px;
-height: 102px;
-top: 250px;
-left: 253px;
-gap: 0px;
-border-radius: 3px 0px 0px 0px;
-border: 1px 0px 0px 0px;
-opacity: 0px;
+    height: 102px;
+    border: 1px solid #E5E5E5;
+}
 
-  }
+input {
+    display: flex;
+    position:absolute;
+    padding-top: 14px;
+    padding-left: 11px; 
+    width: 124px;
+    height: 38px;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 42.19px;
+    text-align: left;
+    border: 0px;   
+}
+
+.exchangecourse {
+    font-family: 'Roboto', sans-serif;
+font-size: 12px;
+font-weight: 400;
+line-height: 14.06px;
+text-align: left;
+
+}
