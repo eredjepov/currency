@@ -6,8 +6,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
-    text-decoration: none !important;
-}
+ }
 
 .container {
     max-width: 975px;
@@ -46,7 +45,25 @@ body {
   
 }
 
+.header_navigation li a {
+    text-decoration: none;
+    color: #959BA4;
+}
 
+.header_navigation li a:hover {
+    color: black;
+}
+
+.enter_button {
+    width: 58px;
+    height: 33px;
+    background-color: white;
+    border-color: #959BA4;
+    align-content: center;
+    padding: 12px;
+   
+
+}
 .calculator, .subheader {
     display: flex;
     padding-right: 165px;
@@ -63,29 +80,39 @@ h2 {
 
 
 }
-.calculator li {
+.calculator .column li {
     display: inline;
     list-style: none;
-    width: 259px;
+    margin-left: -.35em;
+   
+   
 
- 
+   
+}
+
+.calculator .column button, select {
+    width: 53px;
+    height: 28px;
+    color: #C6C6C6;
+    font-size: 12px;
+    background-color: white;
+    border:1px solid #E5E5E5;
+}
+
+button, select:hover {
+    background-color: #833AE0;
+    color: white;
 }
 
 .calculator ul {
-    padding: 0px;
-    height: 30px;
-top: 200px;
-left: 253px;
-gap: 0px;
-border-radius: 3px 0px 0px 3px;
-opacity: 0px;
+    padding-left: 6px;
+    border-radius: 3px 0px 0px 3px;
+
 }
 
 .column ul {
     width: 259px;
     height: 30px;
-    border: 1px solid #E5E5E5;
-    border-radius: 3px, 0px, 0px, 3px;
     vertical-align: middle;
 }
 
@@ -93,10 +120,33 @@ opacity: 0px;
     vertical-align: middle;
 }
 .column .input {
+    display: flex;
+    flex-direction: column;
     width: 259px;
     height: 102px;
     border: 1px solid #E5E5E5;
+    border-radius: 3px;
 }
+
+.column .input .quantity, .result {
+    width: 124px;
+    height: 32px;
+    margin-top: 11px;
+   margin-left: 14px;
+   border: white;
+}
+
+.column .input .exchange_course {
+    font-size: 12px;
+    text-align: left;
+    color: #C6C6C6;
+    width: 119px;
+    height: 28px;
+    margin-top: 49px;
+   margin-left: 14px;
+   border: white;
+}
+
 .reverse button {
     border: 0px;
     background-color: white;
