@@ -60,7 +60,7 @@ body {
     background-color: white;
     border-color: #959BA4;
     align-content: center;
-    padding: 12px;
+    padding: 10px;
    
 
 }
@@ -77,17 +77,12 @@ h2 {
     line-height: 14.06px;
     text-align: left;
     color: #9F9F9F;
-
-
 }
+
 .calculator .column li {
     display: inline;
     list-style: none;
-    margin-left: -.35em;
-   
-   
-
-   
+    margin-left: -.35em;  
 }
 
 .calculator .column button, select {
