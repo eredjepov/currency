@@ -33,7 +33,7 @@ body {
 }
 
 
-.header_navigation li {
+.header_navigation_wrapper {
     list-style: none;
     margin-right: 20px;
     display:inline;
@@ -45,12 +45,12 @@ body {
   
 }
 
-.header_navigation li a {
+.header_navigation_wrapper a {
     text-decoration: none;
     color: #959BA4;
 }
 
-.header_navigation li a:hover {
+.header_navigation_wrapper a:hover {
     color: black;
 }
 
@@ -61,9 +61,8 @@ body {
     border-color: #959BA4;
     align-content: center;
     padding: 10px;
-   
-
 }
+
 .calculator, .subheader {
     display: flex;
     padding-right: 165px;
@@ -79,13 +78,13 @@ h2 {
     color: #9F9F9F;
 }
 
-.calculator .column li {
+.column li {
     display: inline;
     list-style: none;
     margin-left: -.35em;  
 }
 
-.calculator .column button, select {
+.column button, select {
     width: 53px;
     height: 28px;
     color: #C6C6C6;
@@ -94,7 +93,13 @@ h2 {
     border:1px solid #E5E5E5;
 }
 
-button, select:hover {
+.currencies_wrapper:first-of-type button {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+
+.column button.active {
     background-color: #833AE0;
     color: white;
 }
@@ -105,15 +110,15 @@ button, select:hover {
 
 }
 
-.column ul {
+.currencies {
     width: 259px;
     height: 30px;
     vertical-align: middle;
 }
 
-.column li button {
+/* .currencies button {
     vertical-align: middle;
-}
+} */
 .column .input {
     display: flex;
     flex-direction: column;
@@ -123,7 +128,7 @@ button, select:hover {
     border-radius: 3px;
 }
 
-.column .input .quantity, .result {
+.column .quantity, .result {
     width: 124px;
     height: 32px;
     margin-top: 11px;
@@ -131,7 +136,7 @@ button, select:hover {
    border: white;
 }
 
-.column .input .exchange_course {
+.column .exchange_course {
     font-size: 12px;
     text-align: left;
     color: #C6C6C6;
