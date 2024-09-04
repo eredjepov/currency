@@ -99,7 +99,7 @@ h2 {
 }
 
 
-.column button.active {
+.column button.active, .column select.active {
     background-color: #833AE0;
     color: white;
 }
@@ -151,4 +151,16 @@ h2 {
     border: 0px;
     background-color: white;
     padding: 42px;
+}
+
+.order-1 {
+    order: 1;
+}
+
+.order-2 {
+    order: 2;
+}
+
+.order-3 {
+    order: 3;
 }

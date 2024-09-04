@@ -14,7 +14,8 @@ const toGetCurrency = document.querySelectorAll(
 
 const presentCourse = document.querySelector(".exchange_course");
 const reverseButton = document.querySelector(".reverse");
-const column = document.querySelectorAll(".column");
+const columns = document.querySelectorAll(".column");
+const currencySelector = document.querySelector(".column_first select");
 
 getCurrencies();
 async function getCurrencies() {
@@ -38,29 +39,28 @@ async function getCurrencies() {
           "column_first"
         )
       ) {
+        currencySelector.classList.remove("active");
         currencyButtons.forEach((button) => {
           button.classList.remove("active");
         });
 
         event.target.classList.add("active");
-        presentCourse.innerText = `1 ${state.firstCurrency} = ${
-          result.rates[state.firstCurrency]
-        }`;
         state.firstCurrency = event.target.innerText;
+        presentCourse.innerText = `1 ${state.firstCurrency} = ${
+          result.rates[state.firstCurrency]
+        } ${state.secondCurrency}`;
       } else {
+        console.log("HELLO!");
         currencyButtons.forEach((button) => {
           button.classList.remove("active");
         });
 
         event.target.classList.add("active");
-        presentCourse.innerText = `1 ${state.firstCurrency} = ${
-          result.rates[state.firstCurrency]
-        }`;
         state.secondCurrency = event.target.innerText;
+        presentCourse.innerText = `1 ${state.secondCurrency} = ${
+          result.rates[state.secondCurrency]
+        } ${state.firstCurrency}`;
       }
-
-      // console.log(state);
-      // console.log(state.firstCurrency);
       console.log(presentCourse.innerText);
     });
   });
@@ -85,41 +85,46 @@ async function getCurrencies() {
       (parseFloat(input.value) / result.rates[state.firstCurrency]) *
       result.rates[state.secondCurrency];
   });
+
+  currencySelector.addEventListener("change", (event) => {
+    // console.log(currencySelector);
+    // console.log(event.target);
+
+    currencyButtons.forEach((button) => {
+      button.classList.remove("active");
+      // button.onclick(() => {
+      //   state.firstCurrency = event.target.innerText;
+      // });
+      event.target.classList.add("active");
+      // console.log(button.value);
+      state.firstCurrency = button.value;
+
+      // console.log(event.target);
+      // console.log(state.firstCurrency);
+    });
+
+    console.log(event.target.value);
+    state.firstCurrency = event.target.value;
+    console.log(state.firstCurrency);
+    presentCourse.innerText = `1 ${state.firstCurrency} = ${
+      result.rates[state.firstCurrency]
+    }`;
+
+    // 1. перевод данного селекта в активное состояние
+    // 2. убрать подсветку на соседних кнопках
+    // 3. подключить выбранную валюту к расчету калькулятора
+    console.log(event);
+  });
 }
 
-console.log(column);
-reverseButton.addEventListener("click", (event) => {
-  column.forEach((node) => {
-    console.log(node.classList);
-    if ((node.classList.value = "column column_first")) {
-      node.classList.value = "column column_second";
-      console.log(node.classList);
-    }
-    if ((node.classList.value = "column column_second")) {
-      node.classList.value = "column column_first";
-      console.log(node.classList);
+reverseButton.addEventListener("click", () => {
+  columns.forEach((column) => {
+    if (column.classList.contains("order-1")) {
+      column.classList.remove("order-1");
+      column.classList.add("order-3");
+    } else if (column.classList.contains("order-3")) {
+      column.classList.remove("order-3");
+      column.classList.add("order-1");
     }
   });
-  console.log(event.target);
-  // console.log(event.target.parentElement.parentElement.previousElement);
-  // console.log(event.target.previousElement);
-  // if (
-  //   event.target.parentElement.parentElement.parentElement.classList.contains(
-  //     "column_first"
-  //   )
-  // ) {
-  //   console.log(event.target.parentElement.parentElement.parentElement);
-  //   event.target.parentElement.parentElement.parentElement.classList
-  //     .toggle("column_first")
-  //     .add("column_second");
-  // }
-  // // (
-  // //   event.target.parentElement.parentElement.classList.contains("column_second")
-  // // )
-  // else {
-  //   console.log(event.target.parentElement.parentElement.parentElement);
-  //   event.target.parentElement.parentElement.parentElement.classList.toggle(
-  //     "column_second"
-  //   );
-  // }
 });
