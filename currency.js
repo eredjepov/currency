@@ -1,6 +1,6 @@
 const state = {
-  firstCurrency: null,
-  secondCurrency: null,
+  firstCurrency: "USD",
+  secondCurrency: "RUB",
 };
 
 const input = document.querySelector(".quantity");
@@ -12,7 +12,7 @@ const toGetCurrency = document.querySelectorAll(
   ".column_second .currencies_wrapper button"
 );
 
-const presentCourse = document.querySelector(".exchange_course");
+const presentCourse = document.querySelectorAll(".exchange_course");
 const reverseButton = document.querySelector(".reverse");
 const columns = document.querySelectorAll(".column");
 const currencySelector = document.querySelector(".column_first select");
@@ -29,6 +29,28 @@ async function getCurrencies() {
   console.log(result.rates.AED);
   console.log(presentCourse.innerText);
 
+  function changeButtonsColor(evt) {
+    currencySelector.classList.remove("active");
+    currencyButtons.forEach((button) => {
+      button.classList.remove("active");
+    });
+    evt.target.classList.add("active");
+  }
+
+  function showPresentCourse(evt) {
+    if (evt.target.parentElement.parentElement.classList.contains("1")) {
+      state.firstCurrency = evt.target.innerText;
+      presentCourse[0].innerText = `1 ${state.firstCurrency} = ${
+        result.rates[state.firstCurrency]
+      } ${state.secondCurrency}`;
+    } else {
+      state.secondCurrency = evt.target.innerText;
+      presentCourse[1].innerText = `1 ${state.secondCurrency} = ${
+        result.rates[state.secondCurrency]
+      } ${state.firstCurrency}`;
+    }
+  }
+
   currencyButtons.forEach((el) => {
     el.addEventListener("click", (event) => {
       // console.log(el.value);
@@ -39,46 +61,17 @@ async function getCurrencies() {
           "column_first"
         )
       ) {
-        currencySelector.classList.remove("active");
-        currencyButtons.forEach((button) => {
-          button.classList.remove("active");
-        });
-
-        event.target.classList.add("active");
-        state.firstCurrency = event.target.innerText;
-        presentCourse.innerText = `1 ${state.firstCurrency} = ${
-          result.rates[state.firstCurrency]
-        } ${state.secondCurrency}`;
+        changeButtonsColor(event);
+        showPresentCourse(event);
+        // console.log(event.target.parentElement.parentElement.classList);
       } else {
         console.log("HELLO!");
-        currencyButtons.forEach((button) => {
-          button.classList.remove("active");
-        });
-
-        event.target.classList.add("active");
-        state.secondCurrency = event.target.innerText;
-        presentCourse.innerText = `1 ${state.secondCurrency} = ${
-          result.rates[state.secondCurrency]
-        } ${state.firstCurrency}`;
+        changeButtonsColor(event);
+        showPresentCourse(event);
+        // console.log(event.target.parentElement.parentElement.classList);
       }
-      console.log(presentCourse.innerText);
     });
   });
-
-  // toGetCurrency.forEach((el) => {
-  //   el.addEventListener("click", (event) => {
-  //     toGetCurrency.forEach((button) => {
-  //       button.classList.remove("active");
-  //     });
-
-  //     /// повторить методы toggle add remove
-  //     event.target.classList.add("active");
-  //     // console.log(event.target);
-  //     state.secondCurrency = event.target.innerText;
-  //     // console.log(state);
-  //     // console.log(state.secondCurrency);
-  //   });
-  // });
 
   input.addEventListener("input", (e) => {
     toGet.value =
@@ -87,20 +80,10 @@ async function getCurrencies() {
   });
 
   currencySelector.addEventListener("change", (event) => {
-    // console.log(currencySelector);
-    // console.log(event.target);
-
     currencyButtons.forEach((button) => {
       button.classList.remove("active");
-      // button.onclick(() => {
-      //   state.firstCurrency = event.target.innerText;
-      // });
       event.target.classList.add("active");
-      // console.log(button.value);
       state.firstCurrency = button.value;
-
-      // console.log(event.target);
-      // console.log(state.firstCurrency);
     });
 
     console.log(event.target.value);
