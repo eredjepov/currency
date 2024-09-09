@@ -15,7 +15,9 @@ const toGetCurrency = document.querySelectorAll(
 const presentCourse = document.querySelectorAll(".exchange_course");
 const reverseButton = document.querySelector(".reverse");
 const columns = document.querySelectorAll(".column");
-const currencySelector = document.querySelector(".column_first select");
+const currencySelector = document.querySelector(
+  ".column_first select, .column_second select"
+);
 
 getCurrencies();
 async function getCurrencies() {
@@ -38,7 +40,7 @@ async function getCurrencies() {
   }
 
   function showPresentCourse(evt) {
-    if (evt.target.parentElement.parentElement.classList.contains("1")) {
+    if (evt.target.parentElement.parentElement.classList.contains("left")) {
       state.firstCurrency = evt.target.innerText;
       presentCourse[0].innerText = `1 ${state.firstCurrency} = ${
         result.rates[state.firstCurrency]
@@ -53,52 +55,35 @@ async function getCurrencies() {
 
   currencyButtons.forEach((el) => {
     el.addEventListener("click", (event) => {
-      // console.log(el.value);
-
-      console.log();
-      if (
-        event.target.parentElement.parentElement.parentElement.classList.contains(
-          "column_first"
-        )
-      ) {
-        changeButtonsColor(event);
-        showPresentCourse(event);
-        // console.log(event.target.parentElement.parentElement.classList);
-      } else {
-        console.log("HELLO!");
-        changeButtonsColor(event);
-        showPresentCourse(event);
-        // console.log(event.target.parentElement.parentElement.classList);
-      }
+      changeButtonsColor(event);
+      showPresentCourse(event);
     });
   });
 
-  input.addEventListener("input", (e) => {
-    toGet.value =
-      (parseFloat(input.value) / result.rates[state.firstCurrency]) *
-      result.rates[state.secondCurrency];
-  });
-
   currencySelector.addEventListener("change", (event) => {
+    // console.log(event.target.parentElement.parentElement.classList);
     currencyButtons.forEach((button) => {
       button.classList.remove("active");
       event.target.classList.add("active");
       state.firstCurrency = button.value;
     });
 
-    console.log(event.target.value);
+    // console.log(event.target.value);
     state.firstCurrency = event.target.value;
-    console.log(state.firstCurrency);
+    // console.log(state.firstCurrency);
     presentCourse.innerText = `1 ${state.firstCurrency} = ${
       result.rates[state.firstCurrency]
     }`;
 
-    // 1. перевод данного селекта в активное состояние
-    // 2. убрать подсветку на соседних кнопках
-    // 3. подключить выбранную валюту к расчету калькулятора
     console.log(event);
   });
 }
+
+input.addEventListener("input", (e) => {
+  toGet.value =
+    (parseFloat(input.value) / result.rates[state.firstCurrency]) *
+    result.rates[state.secondCurrency];
+});
 
 reverseButton.addEventListener("click", () => {
   columns.forEach((column) => {
