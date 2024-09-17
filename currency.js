@@ -15,9 +15,7 @@ const toGetCurrency = document.querySelectorAll(
 const presentCourse = document.querySelectorAll(".exchange_course");
 const reverseButton = document.querySelector(".reverse");
 const columns = document.querySelectorAll(".column");
-const currencySelector = document.querySelector(
-  ".column_first select, .column_second select"
-);
+const currencySelector = document.querySelector(".column_first select");
 
 getCurrencies();
 async function getCurrencies() {
@@ -32,15 +30,19 @@ async function getCurrencies() {
   console.log(presentCourse.innerText);
 
   function changeButtonsColor(evt) {
-    currencySelector.classList.remove("active");
-    currencyButtons.forEach((button) => {
-      button.classList.remove("active");
+    const currentColumn = evt.target.closest(".column");
+    if (!currentColumn) return;
+    const currentColumnButtons = currentColumn.querySelectorAll("button");
+    const currentColumnSelect = currentColumn.querySelector("select");
+    currentColumnButtons.forEach((el) => {
+      el.classList.remove("active");
     });
+    currentColumnSelect.classList.remove("active");
     evt.target.classList.add("active");
   }
 
   function showPresentCourse(evt) {
-    if (evt.target.parentElement.parentElement.classList.contains("left")) {
+    if (evt.target.parentElement.parentElement.classList.contains("first")) {
       state.firstCurrency = evt.target.innerText;
       presentCourse[0].innerText = `1 ${state.firstCurrency} = ${
         result.rates[state.firstCurrency]
@@ -77,22 +79,54 @@ async function getCurrencies() {
 
     console.log(event);
   });
+
+  input.addEventListener("input", (el) => {
+    console.log(input.value);
+    console.log(state.firstCurrency);
+    console.log(result.rates[state.firstCurrency]);
+    toGet.value =
+      (parseFloat(input.value) / result.rates[state.firstCurrency]) *
+      result.rates[state.secondCurrency];
+    console.log(toGet.value);
+  });
+
+  reverseButton.addEventListener("click", () => {
+    columns.forEach((column) => {
+      if (column.classList.contains("order-1")) {
+        column.classList.remove("order-1");
+        column.classList.add("order-3");
+      } else if (column.classList.contains("order-3")) {
+        column.classList.remove("order-3");
+        column.classList.add("order-1");
+      }
+    });
+  });
+
+  let mask = document.querySelector(".mask");
+
+  let loadTime =
+    window.performance.timing.domContentLoadedEventEnd -
+    window.performance.timing.navigationStart;
+  console.log(loadTime);
+  if (loadTime >= 500) {
+    mask.classList.add("appear");
+    setTimeout(() => {
+      mask.remove();
+    }, 600);
+  } else {
+    mask.remove();
+  }
 }
 
-input.addEventListener("input", (e) => {
-  toGet.value =
-    (parseFloat(input.value) / result.rates[state.firstCurrency]) *
-    result.rates[state.secondCurrency];
-});
+// window.addEventListener("load", () => {
+//
 
-reverseButton.addEventListener("click", () => {
-  columns.forEach((column) => {
-    if (column.classList.contains("order-1")) {
-      column.classList.remove("order-1");
-      column.classList.add("order-3");
-    } else if (column.classList.contains("order-3")) {
-      column.classList.remove("order-3");
-      column.classList.add("order-1");
-    }
-  });
-});
+// window.addEventListener("load", () => {
+//   console.log(window);
+//   console.log(window.load);
+// });
+
+// let time = window.performance;
+// console.log(time);
+// let pageloadtime = time.loadEventEnd - time.navigationStart;
+// console.log(pageloadtime);
