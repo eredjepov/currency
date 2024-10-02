@@ -83,6 +83,8 @@ h2 {
     line-height: 14.06px;
     text-align: left;
     color: #9F9F9F;
+    padding-top: 5px;
+    margin: 0px;
 }
 
 .column li {
@@ -112,7 +114,7 @@ h2 {
 }
 
 .calculator ul {
-    padding-left: 6px;
+    padding-left: 5px;
     border-radius: 3px 0px 0px 3px;
 
 }
@@ -121,6 +123,7 @@ h2 {
     width: 259px;
     height: 30px;
     vertical-align: middle;
+    margin-top: 9px;
 }
 
 /* .currencies button {
@@ -133,6 +136,8 @@ h2 {
     height: 102px;
     border: 1px solid #E5E5E5;
     border-radius: 3px;
+    padding-top: 5px;
+ 
 }
 
 .column .quantity, .result {
@@ -160,7 +165,8 @@ h2 {
 .reverse button {
     border: 0px;
     background-color: white;
-    padding: 42px;
+    padding: 84px 42px 0px 42px;
+    
 }
 
 .order-1 {

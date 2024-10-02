@@ -48,88 +48,90 @@ async function getCurrencies() {
     if (evt.target.parentElement.parentElement.classList.contains("first")) {
       if (evt.target.parentElement.parentElement.classList.contains("left")) {
         state.firstCurrency = evt.target.innerText;
-        presentCourse[0].innerText = `1 ${state.firstCurrency} = ${
-          result.rates[state.firstCurrency]
-        } ${state.secondCurrency}`;
+        presentCourse[0].innerText = `1 ${state.firstCurrency} = ${result.rates[
+          state.firstCurrency
+        ].toFixed(2)} ${state.secondCurrency}`;
       } else {
         state.secondCurrency = evt.target.innerText;
-        presentCourse[1].innerText = `1 ${state.secondCurrency} = ${
-          result.rates[state.secondCurrency]
-        } ${state.firstCurrency}`;
+        presentCourse[1].innerText = `1 ${
+          state.secondCurrency
+        } = ${result.rates[state.secondCurrency].toFixed(2)} ${
+          state.firstCurrency
+        }`;
       }
     }
+  }
 
-    currencyButtons.forEach((el) => {
-      el.addEventListener("click", (event) => {
-        changeButtonsColor(event);
-        showPresentCourse(event);
-      });
+  currencyButtons.forEach((el) => {
+    el.addEventListener("click", (event) => {
+      changeButtonsColor(event);
+      showPresentCourse(event);
+    });
+  });
+
+  currencySelector.addEventListener("change", (event) => {
+    currencyButtons.forEach((button) => {
+      button.classList.remove("active");
+      event.target.classList.add("active");
+      state.firstCurrency = button.value;
     });
 
-    currencySelector.addEventListener("change", (event) => {
-      currencyButtons.forEach((button) => {
-        button.classList.remove("active");
-        event.target.classList.add("active");
-        state.firstCurrency = button.value;
-      });
+    state.firstCurrency = event.target.value;
+    // console.log(state.firstCurrency);
+    presentCourse.innerText = `1 ${state.firstCurrency} = ${
+      result.rates[state.firstCurrency]
+    }`;
 
-      state.firstCurrency = event.target.value;
-      // console.log(state.firstCurrency);
-      presentCourse.innerText = `1 ${state.firstCurrency} = ${
-        result.rates[state.firstCurrency]
-      }`;
+    console.log(event);
+  });
 
-      console.log(event);
+  input.addEventListener("input", (el) => {
+    toGet.value =
+      (parseFloat(input.value) / result.rates[state.firstCurrency]) *
+      result.rates[state.secondCurrency];
+    console.log(toGet.value);
+  });
+
+  reverseButton.addEventListener("click", () => {
+    columns.forEach((column) => {
+      if (column.classList.contains("order-1")) {
+        column.classList.remove("order-1");
+        column.classList.add("order-3");
+      } else if (column.classList.contains("order-3")) {
+        column.classList.remove("order-3");
+        column.classList.add("order-1");
+      }
     });
+  });
 
-    input.addEventListener("input", (el) => {
-      toGet.value =
-        (parseFloat(input.value) / result.rates[state.firstCurrency]) *
-        result.rates[state.secondCurrency];
-      console.log(toGet.value);
-    });
+  input.addEventListener("input", (e) => {
+    toGet.value =
+      (parseFloat(input.value) / result.rates[state.firstCurrency]) *
+      result.rates[state.secondCurrency];
+  });
 
-    reverseButton.addEventListener("click", () => {
-      columns.forEach((column) => {
-        if (column.classList.contains("order-1")) {
-          column.classList.remove("order-1");
-          column.classList.add("order-3");
-        } else if (column.classList.contains("order-3")) {
-          column.classList.remove("order-3");
-          column.classList.add("order-1");
-        }
-      });
+  reverseButton.addEventListener("click", () => {
+    columns.forEach((column) => {
+      if (column.classList.contains("order-1")) {
+        column.classList.remove("order-1");
+        column.classList.add("order-3");
+      } else if (column.classList.contains("order-3")) {
+        column.classList.remove("order-3");
+        column.classList.add("order-1");
+      }
     });
+  });
 
-    input.addEventListener("input", (e) => {
-      toGet.value =
-        (parseFloat(input.value) / result.rates[state.firstCurrency]) *
-        result.rates[state.secondCurrency];
-    });
-
-    reverseButton.addEventListener("click", () => {
-      columns.forEach((column) => {
-        if (column.classList.contains("order-1")) {
-          column.classList.remove("order-1");
-          column.classList.add("order-3");
-        } else if (column.classList.contains("order-3")) {
-          column.classList.remove("order-3");
-          column.classList.add("order-1");
-        }
-      });
-    });
+  let loadTime =
+    window.performance.timing.domContentLoadedEventEnd -
+    window.performance.timing.navigationStart;
+  console.log(loadTime);
+  if (loadTime >= 500) {
+    mask.classList.add("appear");
+    setTimeout(() => {
+      mask.remove();
+    }, 600);
+  } else {
+    mask.remove();
   }
 }
-
-// let loadTime =
-//   window.performance.timing.domContentLoadedEventEnd -
-//   window.performance.timing.navigationStart;
-// console.log(loadTime);
-// if (loadTime >= 500) {
-//   mask.classList.add("appear");
-//   setTimeout(() => {
-//     mask.remove();
-//   }, 600);
-// } else {
-//   mask.remove();
-// }
