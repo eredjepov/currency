@@ -8,16 +8,11 @@ const toGet = document.querySelector(".result");
 const currencyButtons = document.querySelectorAll(
   ".column .currencies_wrapper button"
 );
-const toGetCurrency = document.querySelectorAll(
-  ".column_second .currencies_wrapper button"
-);
 
 const presentCourse = document.querySelectorAll(".exchange_course");
 const reverseButton = document.querySelector(".reverse");
 const columns = document.querySelectorAll(".column");
-const currencySelector = document.querySelector(
-  ".column_first select, .column_second select"
-);
+const currencySelectors = document.querySelectorAll(".calculator select");
 const mask = document.querySelector(".mask");
 
 getCurrencies();
@@ -30,7 +25,6 @@ async function getCurrencies() {
   console.log(result);
 
   console.log(result.rates.AED);
-  console.log(presentCourse.innerText);
 
   function changeButtonsColor(evt) {
     const currentColumn = evt.target.closest(".column");
@@ -45,21 +39,19 @@ async function getCurrencies() {
   }
 
   function showPresentCourse(evt) {
+    console.log(evt.target.value);
     if (evt.target.parentElement.parentElement.classList.contains("first")) {
-      if (evt.target.parentElement.parentElement.classList.contains("left")) {
-        state.firstCurrency = evt.target.innerText;
-        presentCourse[0].innerText = `1 ${state.firstCurrency} = ${result.rates[
-          state.firstCurrency
-        ].toFixed(2)} ${state.secondCurrency}`;
-      } else {
-        state.secondCurrency = evt.target.innerText;
-        presentCourse[1].innerText = `1 ${
-          state.secondCurrency
-        } = ${result.rates[state.secondCurrency].toFixed(2)} ${
-          state.firstCurrency
-        }`;
-      }
+      state.firstCurrency = evt.target.value;
     }
+    if (evt.target.parentElement.parentElement.classList.contains("second")) {
+      state.secondCurrency = evt.target.value;
+    }
+    presentCourse[0].innerText = `1 ${"USD"} = ${result.rates[
+      state.firstCurrency
+    ].toFixed(2)} ${state.firstCurrency}`;
+    presentCourse[1].innerText = `1 ${"USD"} = ${result.rates[
+      state.secondCurrency
+    ].toFixed(2)} ${state.secondCurrency}`;
   }
 
   currencyButtons.forEach((el) => {
@@ -69,39 +61,20 @@ async function getCurrencies() {
     });
   });
 
-  currencySelector.addEventListener("change", (event) => {
-    currencyButtons.forEach((button) => {
-      button.classList.remove("active");
-      event.target.classList.add("active");
-      state.firstCurrency = button.value;
+  currencySelectors.forEach((select) => {
+    select.addEventListener("change", (event) => {
+      console.log(event.target.value);
+      changeButtonsColor(event);
+      showPresentCourse(event);
+      ////доделать
     });
-
-    state.firstCurrency = event.target.value;
-    // console.log(state.firstCurrency);
-    presentCourse.innerText = `1 ${state.firstCurrency} = ${
-      result.rates[state.firstCurrency]
-    }`;
-
-    console.log(event);
   });
 
   input.addEventListener("input", (el) => {
-    toGet.value =
+    toGet.value.toFixed(2) =
       (parseFloat(input.value) / result.rates[state.firstCurrency]) *
       result.rates[state.secondCurrency];
     console.log(toGet.value);
-  });
-
-  reverseButton.addEventListener("click", () => {
-    columns.forEach((column) => {
-      if (column.classList.contains("order-1")) {
-        column.classList.remove("order-1");
-        column.classList.add("order-3");
-      } else if (column.classList.contains("order-3")) {
-        column.classList.remove("order-3");
-        column.classList.add("order-1");
-      }
-    });
   });
 
   input.addEventListener("input", (e) => {
@@ -115,23 +88,24 @@ async function getCurrencies() {
       if (column.classList.contains("order-1")) {
         column.classList.remove("order-1");
         column.classList.add("order-3");
-      } else if (column.classList.contains("order-3")) {
+      } else  {
         column.classList.remove("order-3");
         column.classList.add("order-1");
       }
     });
   });
+}
+//подскажи пожалуйста вариант краткой записи через тернарные операторы
 
-  let loadTime =
-    window.performance.timing.domContentLoadedEventEnd -
-    window.performance.timing.navigationStart;
-  console.log(loadTime);
-  if (loadTime >= 500) {
-    mask.classList.add("appear");
-    setTimeout(() => {
-      mask.remove();
-    }, 600);
-  } else {
+let loadTime =
+  window.performance.timing.domContentLoadedEventEnd -
+  window.performance.timing.navigationStart;
+console.log(loadTime);
+if (loadTime >= 500) {
+  mask.classList.add("appear");
+  setTimeout(() => {
     mask.remove();
-  }
+  }, 600);
+} else {
+  mask.remove();
 }
