@@ -1,30 +1,37 @@
-const state = {
-  firstCurrency: "USD",
-  secondCurrency: "RUB",
-};
+(async function initialize() {
+  const state = {
+    firstCurrency: "USD",
+    secondCurrency: "RUB",
+    apiResponse: {},
+  };
 
-const input = document.querySelector(".quantity");
-const toGet = document.querySelector(".result");
-const currencyButtons = document.querySelectorAll(
-  ".column .currencies_wrapper button"
-);
-
-const presentCourse = document.querySelectorAll(".exchange_course");
-const reverseButton = document.querySelector(".reverse");
-const columns = document.querySelectorAll(".column");
-const currencySelectors = document.querySelectorAll(".calculator select");
-const mask = document.querySelector(".mask");
-
-getCurrencies();
-async function getCurrencies() {
-  const response = await fetch(
-    "https://openexchangerates.org/api/latest.json?app_id=e5f7bb3c257949999a103fc8fbaa7c15"
+  const calculationInputs = document.querySelectorAll("input");
+  const input = document.querySelector(".quantity");
+  const toGet = document.querySelector(".result");
+  const currencyButtons = document.querySelectorAll(
+    ".column .currencies_wrapper button"
   );
-  const data = await response.json();
-  const result = await data;
-  console.log(result);
 
-  console.log(result.rates.AED);
+  const presentCourse = document.querySelectorAll(".exchange_course");
+  const reverseButton = document.querySelector(".reverse");
+  const columns = document.querySelectorAll(".column");
+  const currencySelectors = document.querySelectorAll(".calculator select");
+  const mask = document.querySelector(".mask");
+
+  async function getCurrencies() {
+    const response = await fetch(
+      "https://openexchangerates.org/api/latest.json?app_id=e5f7bb3c257949999a103fc8fbaa7c15"
+    );
+    const data = await response.json();
+    const result = await data;
+    console.log(result);
+
+    console.log(result.rates.AED);
+    return result;
+  }
+
+  const apiResponse = await getCurrencies();
+  state.apiResponse = apiResponse;
 
   function changeButtonsColor(evt) {
     const currentColumn = evt.target.closest(".column");
@@ -46,12 +53,31 @@ async function getCurrencies() {
     if (evt.target.parentElement.parentElement.classList.contains("second")) {
       state.secondCurrency = evt.target.value;
     }
-    presentCourse[0].innerText = `1 ${"USD"} = ${result.rates[
-      state.firstCurrency
-    ].toFixed(2)} ${state.firstCurrency}`;
-    presentCourse[1].innerText = `1 ${"USD"} = ${result.rates[
-      state.secondCurrency
-    ].toFixed(2)} ${state.secondCurrency}`;
+    presentCourse[0].innerText = `1 ${state.firstCurrency} = ${(
+      state.apiResponse.rates[state.secondCurrency] /
+      state.apiResponse.rates[state.firstCurrency]
+    ).toFixed(2)} ${state.secondCurrency}`;
+    presentCourse[1].innerText = `1 ${state.secondCurrency} = ${(
+      state.apiResponse.rates[state.firstCurrency] /
+      state.apiResponse.rates[state.secondCurrency]
+    ).toFixed(2)} ${state.firstCurrency}`;
+  }
+
+  function makeCalculation(evt) {
+    // if (!toGet.value || !input.value) {
+    //   return;
+    // }
+    evt.target.parentElement.parentElement.classList.contains("column_first")
+      ? (toGet.value = (
+          (parseFloat(input.value) /
+            state.apiResponse.rates[state.firstCurrency]) *
+          state.apiResponse.rates[state.secondCurrency]
+        ).toFixed(2))
+      : (input.value = (
+          (parseFloat(toGet.value) /
+            state.apiResponse.rates[state.secondCurrency]) *
+          state.apiResponse.rates[state.firstCurrency]
+        ).toFixed(2));
   }
 
   currencyButtons.forEach((el) => {
@@ -66,46 +92,39 @@ async function getCurrencies() {
       console.log(event.target.value);
       changeButtonsColor(event);
       showPresentCourse(event);
-      ////доделать
     });
   });
 
-  input.addEventListener("input", (el) => {
-    toGet.value.toFixed(2) =
-      (parseFloat(input.value) / result.rates[state.firstCurrency]) *
-      result.rates[state.secondCurrency];
-    console.log(toGet.value);
-  });
-
-  input.addEventListener("input", (e) => {
-    toGet.value =
-      (parseFloat(input.value) / result.rates[state.firstCurrency]) *
-      result.rates[state.secondCurrency];
+  calculationInputs.forEach((calculationInput) => {
+    calculationInput.addEventListener("input", (event) => {
+      makeCalculation(event);
+    });
   });
 
   reverseButton.addEventListener("click", () => {
     columns.forEach((column) => {
-      if (column.classList.contains("order-1")) {
-        column.classList.remove("order-1");
-        column.classList.add("order-3");
-      } else  {
-        column.classList.remove("order-3");
-        column.classList.add("order-1");
-      }
+      column.classList.toggle("order-1");
+      column.classList.toggle("order-3");
+
+      //НЕ УДАЛЯТЬ ТЕКСТ КОДА!!!! if (column.classList.contains("order-1")) {
+      //   column.classList.remove("order-1");
+      //   column.classList.add("order-3");
+      // } else {
+      //   column.classList.remove("order-3");
+      //   column.classList.add("order-1");
+      // }
     });
   });
-}
-//подскажи пожалуйста вариант краткой записи через тернарные операторы
 
-let loadTime =
-  window.performance.timing.domContentLoadedEventEnd -
-  window.performance.timing.navigationStart;
-console.log(loadTime);
-if (loadTime >= 500) {
-  mask.classList.add("appear");
-  setTimeout(() => {
-    mask.remove();
-  }, 600);
-} else {
-  mask.remove();
-}
+  let loadTime =
+    window.performance.timing.domContentLoadedEventEnd -
+    window.performance.timing.navigationStart;
+  console.log(loadTime);
+
+  loadTime >= 500
+    ? (mask.classList.add("appear"),
+      setTimeout(() => {
+        mask.remove();
+      }, 600))
+    : mask.remove();
+})();

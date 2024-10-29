@@ -4,13 +4,13 @@
 
 body {
     margin: 0;
-    padding: 0;
+    padding: 100;
     font-family: 'Roboto', sans-serif;
  }
 
 .container {
     max-width: 975px;
-    padding-left: 85px;
+    padding-left: 0px;
     padding-right: 10px;
     margin-top: 0;
     margin-bottom: 0;
@@ -21,20 +21,22 @@ body {
 .header {
     display: flex;
     background-color: #F5F5F6;
+    padding-left: auto;
   }
 
 
 .header_content {
     width: 975px;
     display: flex;
-    padding-left: 70px;
+    padding-left: auto;
     justify-content: center;
     flex-direction: row;
     align-items: center;
 }
 
 .header_navigation {
-    padding-left: 80px;
+    padding-left: 85px;
+    padding-right: 95px;
 }
 .header_navigation_wrapper {
     list-style: none;
@@ -44,7 +46,9 @@ body {
     font-weight: 500;
     line-height: 12.89px;
     letter-spacing: 0.06em;
-    text-align: left;
+    text-align: center;
+   
+    
   
 }
 
