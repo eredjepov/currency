@@ -52,77 +52,87 @@
     <div class="container">
       <h1 class="subheader">Конвертер валют онлайн</h1>
       <div class="calculator">
-        <div class="column">
+        <div class="column column_first order-1">
           <h2>У меня есть</h2>
-          <ul class="currencies">
-            <li class="currencies_wrapper"><button>RUB</button></li>
+
+          <ul class="currencies first">
+            <li class="currencies_wrapper"><button value="RUB">RUB</button></li>
             <li class="currencies_wrapper">
-              <button class="active">USD</button>
+              <button class="active" value="USD">USD</button>
             </li>
-            <li class="currencies_wrapper"><button>EUR</button></li>
-            <li class="currencies_wrapper"><button>GBP</button></li>
+            <li class="currencies_wrapper"><button value="EUR">EUR</button></li>
+            <li class="currencies_wrapper"><button value="GBP">GBP</button></li>
             <li>
-              <select>
-                <option>BYR</option>
-                <option>HKD</option>
-                <option>IDR</option>
-                <option>ILS</option>
-                <option>DKK</option>
-                <option>INR</option>
-                <option>CHF</option>
-                <option>MXN</option>
-                <option>CZK</option>
-                <option>SGD</option>
-                <option>THB</option>
+              <select class="have_value">
+                <option><button value="BYN">BYN</button></option>
+                <option><button value="HKD">HKD</button></option>
+                <option><button value="IDR">IDR</button></option>
+                <option><button value="ILS">ILS</button></option>
+                <option><button value="DKK">DKK</button></option>
+                <option><button value="INR">INR</button></option>
+                <option><button value="CHF">CHF</button></option>
+                <option><button value="MXN">MXN</button></option>
+                <option><button value="CZK">CZK</button></option>
+                <option><button value="SGD">SGD</button></option>
+                <option><button value="THB">THB</button></option>
               </select>
             </li>
           </ul>
 
           <div class="input">
-            <input class="quantity" type="text" placeholder="0000" />
+            <input class="quantity" type="number" placeholder="0000" />
             <span class="exchange_course">1 RUB = 0.0135 USD</span>
           </div>
         </div>
 
-        <div class="reverse">
+        <div class="reverse order-2">
           <button>
             <img src="./pictures/reverse.svg" alt="reverse-pic" />
           </button>
         </div>
 
-        <div class="column">
+        <div class="column column_second order-3">
           <h2>Хочу приобрести</h2>
-          <ul class="currencies">
+          <ul class="currencies second">
             <li class="currencies_wrapper">
-              <button class="active">RUB</button>
+              <button class="active" value="RUB">RUB</button>
             </li>
-            <li class="currencies_wrapper"><button>USD</button></li>
-            <li class="currencies_wrapper"><button>EUR</button></li>
-            <li class="currencies_wrapper"><button>GBP</button></li>
+            <li class="currencies_wrapper"><button value="USD">USD</button></li>
+            <li class="currencies_wrapper"><button value="EUR">EUR</button></li>
+            <li class="currencies_wrapper"><button value="GBP">GBP</button></li>
             <li>
-              <select>
-                <option>BYR</option>
-                <option>HKD</option>
-                <option>IDR</option>
-                <option>ILS</option>
-                <option>DKK</option>
-                <option>INR</option>
-                <option>CHF</option>
-                <option>MXN</option>
-                <option>CZK</option>
-                <option>SGD</option>
-                <option>THB</option>
+              <select class="get_value">
+                <option><button value="BYN">BYN</button></option>
+                <option><button value="HKD">HKD</button></option>
+                <option><button value="IDR">IDR</button></option>
+                <option><button value="ILS">ILS</button></option>
+                <option><button value="DKK">DKK</button></option>
+                <option><button value="INR">INR</button></option>
+                <option><button value="CHF">CHF</button></option>
+                <option><button value="MXN">MXN</button></option>
+                <option><button value="CZK">CZK</button></option>
+                <option><button value="SGD">SGD</button></option>
+                <option><button value="THB">THB</button></option>
               </select>
             </li>
           </ul>
 
           <div class="input">
-            <input class="result" type="text" placeholder="0000" />
+            <input class="result" type="number" placeholder="0000" />
             <span class="exchange_course">1 RUB = 0.0135 USD</span>
           </div>
         </div>
       </div>
     </div>
+
+    <div class="mask">
+      <div class="loader">Loading</div>
+    </div>
+
+    <div class="cover">
+      <div class="mistake">Произошла Ошибка!!!</div>
+    </div>
+
     <script src="currency.js"></script>
   </body>
 </html>

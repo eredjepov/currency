@@ -4,13 +4,13 @@
 
 body {
     margin: 0;
-    padding: 0;
+    padding: 100;
     font-family: 'Roboto', sans-serif;
  }
 
 .container {
     max-width: 975px;
-    padding-left: 10px;
+    padding-left: 0px;
     padding-right: 10px;
     margin-top: 0;
     margin-bottom: 0;
@@ -21,18 +21,23 @@ body {
 .header {
     display: flex;
     background-color: #F5F5F6;
+    padding-left: auto;
   }
 
 
 .header_content {
     width: 975px;
     display: flex;
+    padding-left: auto;
     justify-content: center;
     flex-direction: row;
     align-items: center;
 }
 
-
+.header_navigation {
+    padding-left: 85px;
+    padding-right: 95px;
+}
 .header_navigation_wrapper {
     list-style: none;
     margin-right: 20px;
@@ -41,7 +46,9 @@ body {
     font-weight: 500;
     line-height: 12.89px;
     letter-spacing: 0.06em;
-    text-align: left;
+    text-align: center;
+   
+    
   
 }
 
@@ -62,7 +69,11 @@ body {
     align-content: center;
     padding: 10px;
 }
-
+.subheader {
+    font-size: 36px;
+    font-weight: 700;
+    padding-top: 29px;
+}
 .calculator, .subheader {
     display: flex;
     padding-right: 165px;
@@ -76,6 +87,8 @@ h2 {
     line-height: 14.06px;
     text-align: left;
     color: #9F9F9F;
+    padding-top: 5px;
+    margin: 0px;
 }
 
 .column li {
@@ -99,13 +112,13 @@ h2 {
 }
 
 
-.column button.active {
+.column button.active, .column select.active {
     background-color: #833AE0;
     color: white;
 }
 
 .calculator ul {
-    padding-left: 6px;
+    padding-left: 5px;
     border-radius: 3px 0px 0px 3px;
 
 }
@@ -114,6 +127,7 @@ h2 {
     width: 259px;
     height: 30px;
     vertical-align: middle;
+    margin-top: 9px;
 }
 
 /* .currencies button {
@@ -126,11 +140,16 @@ h2 {
     height: 102px;
     border: 1px solid #E5E5E5;
     border-radius: 3px;
+    padding-top: 5px;
+ 
 }
 
 .column .quantity, .result {
     width: 124px;
-    height: 32px;
+    height: 38px;
+    font-size: 36px;
+    color:#000000;
+    font-weight: 700;
     margin-top: 11px;
    margin-left: 14px;
    border: white;
@@ -142,7 +161,7 @@ h2 {
     color: #C6C6C6;
     width: 119px;
     height: 28px;
-    margin-top: 49px;
+    margin-top: 30px;
    margin-left: 14px;
    border: white;
 }
@@ -150,5 +169,63 @@ h2 {
 .reverse button {
     border: 0px;
     background-color: white;
-    padding: 42px;
+    padding: 84px 42px 0px 42px;
+    
+}
+
+.order-1 {
+    order: 1;
+}
+
+.order-2 {
+    order: 2;
+}
+
+.order-3 {
+    order: 3;
+}
+
+.mask, .cover {
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    opacity: 0%;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    transition: 0.6;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.appear {
+    opacity: 44%;
+    display: flex;
+}
+
+.loader {
+    width: 129px;
+    height: 54px;
+    color:#000000;
+    opacity: 100%;
+    background-color: white;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px 3px 3px 3px;
+}
+
+.mistake {
+    width: 270px;
+    height: 54px;
+    color:#000000;
+    opacity: 100%;
+    background-color: white;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px 3px 3px 3px;
 }
