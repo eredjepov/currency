@@ -3,6 +3,7 @@
     firstCurrency: "USD",
     secondCurrency: "RUB",
     apiResponse: {},
+    isFirstRun: true,
   };
 
   const calculationInputs = document.querySelectorAll("input");
@@ -17,21 +18,45 @@
   const columns = document.querySelectorAll(".column");
   const currencySelectors = document.querySelectorAll(".calculator select");
   const mask = document.querySelector(".mask");
+  const cover = document.querySelector(".cover");
 
   async function getCurrencies() {
     const response = await fetch(
       "https://openexchangerates.org/api/latest.json?app_id=e5f7bb3c257949999a103fc8fbaa7c15"
-    );
+    ).catch((error) => {
+      cover.classList.add("appear");
+    });
+
     const data = await response.json();
     const result = await data;
-    console.log(result);
-
-    console.log(result.rates.AED);
     return result;
   }
 
   const apiResponse = await getCurrencies();
   state.apiResponse = apiResponse;
+
+  if (state.isFirstRun) {
+    input.value = 1;
+    toGet.value = (
+      (parseFloat(input.value) / state.apiResponse.rates[state.firstCurrency]) *
+      state.apiResponse.rates[state.secondCurrency]
+    ).toFixed(2);
+    state.isFirstRun = false;
+  }
+
+  function firstColumnCurrenciesValue() {
+    return (
+      state.apiResponse.rates[state.secondCurrency] /
+      state.apiResponse.rates[state.firstCurrency]
+    ).toFixed(2);
+  }
+
+  function secondColumnCurrenciesValue() {
+    return (
+      state.apiResponse.rates[state.firstCurrency] /
+      state.apiResponse.rates[state.secondCurrency]
+    ).toFixed(2);
+  }
 
   function changeButtonsColor(evt) {
     const currentColumn = evt.target.closest(".column");
@@ -46,52 +71,39 @@
   }
 
   function showPresentCourse(evt) {
-    console.log(evt.target.value);
     if (evt.target.parentElement.parentElement.classList.contains("first")) {
       state.firstCurrency = evt.target.value;
     }
     if (evt.target.parentElement.parentElement.classList.contains("second")) {
       state.secondCurrency = evt.target.value;
     }
-    presentCourse[0].innerText = `1 ${state.firstCurrency} = ${(
-      state.apiResponse.rates[state.secondCurrency] /
-      state.apiResponse.rates[state.firstCurrency]
-    ).toFixed(2)} ${state.secondCurrency}`;
-    presentCourse[1].innerText = `1 ${state.secondCurrency} = ${(
-      state.apiResponse.rates[state.firstCurrency] /
-      state.apiResponse.rates[state.secondCurrency]
-    ).toFixed(2)} ${state.firstCurrency}`;
+    presentCourse[0].innerText = `1 ${
+      state.firstCurrency
+    } = ${firstColumnCurrenciesValue()} ${state.secondCurrency}`;
+    presentCourse[1].innerText = `1 ${
+      state.secondCurrency
+    } = ${secondColumnCurrenciesValue()} ${state.firstCurrency}`;
   }
 
-  function makeCalculation(evt) {
-    // if (!toGet.value || !input.value) {
-    //   return;
-    // }
+  function makeCalculation(evt, direction = false) {
     evt.target.parentElement.parentElement.classList.contains("column_first")
-      ? (toGet.value = (
-          (parseFloat(input.value) /
-            state.apiResponse.rates[state.firstCurrency]) *
-          state.apiResponse.rates[state.secondCurrency]
-        ).toFixed(2))
-      : (input.value = (
-          (parseFloat(toGet.value) /
-            state.apiResponse.rates[state.secondCurrency]) *
-          state.apiResponse.rates[state.firstCurrency]
-        ).toFixed(2));
+      ? (toGet.value = parseFloat(input.value) / secondColumnCurrenciesValue())
+      : (input.value = parseFloat(toGet.value) / firstColumnCurrenciesValue());
   }
 
   currencyButtons.forEach((el) => {
     el.addEventListener("click", (event) => {
       changeButtonsColor(event);
       showPresentCourse(event);
+      makeCalculation(event, (direction = false));
     });
   });
 
   currencySelectors.forEach((select) => {
     select.addEventListener("change", (event) => {
-      console.log(event.target.value);
       changeButtonsColor(event);
       showPresentCourse(event);
+      makeCalculation(event, (direction = false));
     });
   });
 
@@ -105,14 +117,6 @@
     columns.forEach((column) => {
       column.classList.toggle("order-1");
       column.classList.toggle("order-3");
-
-      //НЕ УДАЛЯТЬ ТЕКСТ КОДА!!!! if (column.classList.contains("order-1")) {
-      //   column.classList.remove("order-1");
-      //   column.classList.add("order-3");
-      // } else {
-      //   column.classList.remove("order-3");
-      //   column.classList.add("order-1");
-      // }
     });
   });
 
